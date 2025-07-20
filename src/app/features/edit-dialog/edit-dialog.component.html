@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Eintrag bearbeiten</h2>
+
+<form [formGroup]="editForm">
+  <mat-dialog-content>
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>APP6</mat-label>
+      <input matInput formControlName="app6" />
+      <mat-error *ngIf="editForm.get('app6')?.hasError('required')">
+        APP6 ist erforderlich
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>MilStdD</mat-label>
+      <input matInput formControlName="milStd2525C" />
+      <mat-error *ngIf="editForm.get('milStdD')?.hasError('required')">
+        MilStdD ist erforderlich
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Abbrechen</button>
+    <button mat-flat-button color="primary" type="button" [disabled]="editForm.invalid" (click)="save()">Speichern</button>
+  </mat-dialog-actions>
+</form>
