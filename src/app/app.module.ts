@@ -20,6 +20,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {SymbologyFormComponent} from './features/symbology-form/symbology-form.component';
+import {SymbologyFilterComponent} from './features/symbology-filter/symbology-filter.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {SymbologyFormComponent} from './features/symbology-form/symbology-form.c
     SymbologyEditorComponent,
     EditDialogComponent,
     ConfirmDialogComponent,
-    SymbologyFormComponent
+    SymbologyFormComponent,
+    SymbologyFilterComponent
   ],
   imports: [
     BrowserModule,

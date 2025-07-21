@@ -8,12 +8,10 @@
 >
 </symbology-form>
 <!-- Filterfeld -->
-<form [formGroup]="filterForm">
-  <mat-form-field appearance="outline">
-    <mat-label>Filter</mat-label>
-    <input matInput formControlName="filterValue" placeholder="Suche nach APP6 oder MilStdD" [disabled]="loading"/>
-  </mat-form-field>
-</form>
+<app-symbology-filter
+  [loading]="loading"
+  (filterChanged)="onFilterChanged($event)"
+></app-symbology-filter>
 
 <!-- Error Message -->
 <mat-card *ngIf="error">

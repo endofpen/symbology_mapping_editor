@@ -6,7 +6,6 @@ import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {SymbologyRepositoryService} from "../../service/symbology-repository.service";
 import {SymbologyRepositoryStateService} from "../../service/symbology-repository-state.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
@@ -29,19 +28,14 @@ export class SymbologyEditorComponent implements OnInit, OnDestroy, AfterViewIni
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('symbologyForm') symbologyForm!: SymbologyFormComponent;
-  filterForm: FormGroup;
 
   private readonly subscription: Subscription = new Subscription();
-
+  private currentFilter = '';
   constructor(private readonly symbologyRepository: SymbologyRepositoryService,
               private readonly stateService: SymbologyRepositoryStateService,
               private readonly snackBar: MatSnackBar,
-              private readonly formBuilder: FormBuilder,
               private readonly dialog: MatDialog
   ) {
-    this.filterForm = this.formBuilder.group({
-      filterValue: ['']
-    });
   }
 
   ngOnInit(): void {
@@ -66,13 +60,6 @@ export class SymbologyEditorComponent implements OnInit, OnDestroy, AfterViewIni
         }
       })
     );
-
-    // Subscribe to filter changes
-    this.subscription.add(
-      this.filterForm.get('filterValue')!.valueChanges.subscribe(() => {
-        this.applyFilter();
-      })
-    );
   }
 
   ngAfterViewInit(): void {
@@ -82,6 +69,11 @@ export class SymbologyEditorComponent implements OnInit, OnDestroy, AfterViewIni
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  onFilterChanged(filterValue: string): void {
+    this.currentFilter = filterValue;
+    this.applyFilter();
   }
 
   // Apply filter to the data source
@@ -98,7 +90,7 @@ export class SymbologyEditorComponent implements OnInit, OnDestroy, AfterViewIni
 
   // Getter for filter value
   get filterValue(): string {
-    return this.filterForm.get('filterValue')?.value ?? '';
+    return this.currentFilter
   }
 
   // Fügen Sie eine neue Methode hinzu, um Einträge vom Formular zu empfangen
