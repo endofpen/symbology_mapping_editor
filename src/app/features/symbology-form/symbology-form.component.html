@@ -1,0 +1,30 @@
+<!-- Eingabe für neue Einträge -->
+<form [formGroup]="entryForm" (ngSubmit)="addEntry()">
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>APP6</mat-label>
+      <input matInput formControlName="app6" [disabled]="loading"/>
+      <mat-error *ngIf="entryForm.get('app6')?.hasError('required')">
+        APP6 ist erforderlich
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>MilStdD</mat-label>
+      <input matInput formControlName="milStd2525C" [disabled]="loading"/>
+      <mat-error *ngIf="entryForm.get('milStd2525C')?.hasError('required')">
+        MilStdD ist erforderlich
+      </mat-error>
+      <mat-error *ngIf="entryForm.get('milStd2525C')?.hasError('minlength') || entryForm.get('milStdD')?.hasError('maxlength')">
+        MilStdD benötigt mindestens 20 und maximal 30 Zeichen.
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <button mat-raised-button color="primary" type="submit" [disabled]="entryForm.invalid || loading">
+      <span *ngIf="!loading">Hinzufügen</span>
+      <span *ngIf="loading">Wird hinzugefügt...</span>
+    </button>
+  </div>
+</form>
